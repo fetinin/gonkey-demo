@@ -1,0 +1,24 @@
+- name: "new nick generated"
+  description: >
+    КОГДА отправляется запрос на создание имени
+    ДОЛЖЕН возвращаться случаный ник
+
+  method: GET
+  path: /new-nick
+
+  mocks:
+    nameApi:
+      strategy: constant
+      body: >
+        ["Leroy Jenkins"]
+      calls: 1
+      requestConstraints:
+        - kind: methodIsGET
+        - kind: pathMatches
+          path: /1
+        - kind: queryMatches
+          expectedQuery: separator=space
+
+  response:
+    200: >
+      {"nickname":"Leroy Jenkins"}

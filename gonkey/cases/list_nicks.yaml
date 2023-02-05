@@ -1,0 +1,28 @@
+- name: "List all nicks"
+  description: >
+    КОГДА отправляется запрос на список имён
+    ДОЛЖЕН вернуться успешный ответ со списком имён из базы
+  method: GET
+  path: /
+
+  fixtures:
+    - empty
+
+  response:
+    200: >
+      []
+
+
+- name: "List all nicks"
+  description: >
+    КОГДА отправляется запрос на список имён
+    ДОЛЖЕН вернуться успешный ответ со списком имён из базы
+  method: GET
+  path: /
+
+  fixtures:
+    - nicks
+
+  response:
+    200: >
+      ["Karl Franz","Tzeentch"]

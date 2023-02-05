@@ -1,0 +1,46 @@
+- name: "new nick generated"
+  description: >
+    КОГДА отправляется запрос на создание имени
+    ДОЛЖЕН возвращаться случаный ник
+
+  method: GET
+  path: /new-nick
+
+  fixtures:
+    - empty
+
+  variables:
+    name: Leroy Jenkins
+
+  variables_to_set:
+    200:
+      name_from_resp: "nickname"
+
+  mocks:
+    nameApi:
+      strategy: constant
+      body: >
+        ["{{$name}}"]
+      calls: 1
+      requestConstraints:
+        - kind: methodIsGET
+        - kind: pathMatches
+          path: /1
+        - kind: queryMatches
+          expectedQuery: separator=space
+
+  response:
+    200: >
+      {"nickname":"{{$name}}"}
+
+
+- name: "List all nicks"
+  description: >
+    КОГДА отправляется запрос на список имён
+    ДОЛЖЕН вернуться успешный ответ со списком имён из базы
+  method: GET
+  path: /
+
+  response:
+    200: >
+      ["{{$name_from_resp}}"]

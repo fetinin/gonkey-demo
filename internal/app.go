@@ -31,7 +31,7 @@ func (h *API) ListNicks(w http.ResponseWriter, r *http.Request) {
 	ctx := context.Background()
 
 	// bug: don't initialize it, who cares. nicks := make([]string, 0)
-	var nicks []string
+	nicks := make([]string, 0)
 	err := pgxscan.Select(ctx, h.db, &nicks, "SELECT name FROM nicknames ORDER BY created_at LIMIT 50")
 	if err != nil {
 		h.handleInternalError(w, err)
